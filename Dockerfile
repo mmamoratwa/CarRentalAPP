@@ -5,14 +5,14 @@ WORKDIR /app
 
 COPY . .
 
-RUN cd carrentalapi && mvn clean package -DskipTests
+RUN mvn clean package -DskipTests
 
-# Step 2: Create the runtime environment with a slim Java 17 JRE
+# Step 2: Create the runtime environment
 FROM eclipse-temurin:17-jre-alpine
 
 WORKDIR /app
 
-COPY --from=build /app/carrentalapi/target/*.jar app.jar
+COPY --from=build /app/target/*.jar app.jar
 
 EXPOSE 8080
 
